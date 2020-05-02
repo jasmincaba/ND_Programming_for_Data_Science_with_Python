@@ -1,8 +1,3 @@
-/* Set 1 - Question 1
-Create a query that lists each movie, the film category it is classified in,
-and the number of times it has been rented out.
-*/
-
 WITH t1 AS (SELECT title, c.name cat_name, rental_date,rental_id
 			FROM film f
 			JOIN film_category fc
@@ -15,7 +10,7 @@ WITH t1 AS (SELECT title, c.name cat_name, rental_date,rental_id
 			ON r.inventory_id=i.inventory_id
 			WHERE c.name = 'Animation' OR c.name='Children' OR c.name='Classics' OR c.name='Comedy'
 		   OR c.name='Family' OR c.name='Music')
-SELECT title,cat_name, COUNT(*) rental_count
+SELECT cat_name, COUNT(*) rental_count
 FROM t1
-GROUP BY 1,2
+GROUP BY 1
 ORDER BY 2 

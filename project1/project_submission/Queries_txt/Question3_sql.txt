@@ -1,0 +1,13 @@
+WITH t1 AS(SELECT title, c.name cat_name, rental_duration 
+			FROM category c
+			JOIN film_category fc
+			ON c.category_id=fc.category_id
+			JOIN film f
+			ON f.film_id=fc.film_id
+		    WHERE c.name = 'Animation' OR c.name='Children' OR c.name='Classics' OR c.name='Comedy'
+		   OR c.name='Family' OR c.name='Music')
+	
+SELECT cat_name,  SUM(rental_duration)
+FROM t1
+GROUP BY 1
+ORDER BY 2 DESC
