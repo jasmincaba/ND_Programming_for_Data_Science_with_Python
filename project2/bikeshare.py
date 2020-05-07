@@ -1,6 +1,7 @@
 import time
 import pandas as pd
 import numpy as np
+import sys
 
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
@@ -165,13 +166,45 @@ def user_stats(df):
     print('-'*40)
 
 
+def display_data(df):
+
+    start = 0
+    end = 5
+    step = 5
+
+    while True:
+        print (df[:][start:end])
+        i = input("Would you like to see next 5 rows: (y/n) ")
+        if i == "y":
+            start += step
+            end += step
+        else:
+            break
+
+
+
 def main():
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)
 
+
+        print ("\nDisplaying data for {} \n".format(city.title()))
+        display_data(df)
+
+        print ("-"*80)
+        print ("\nDescriptive statistics are available. Would you like to continue?(y/n)")
+        exit = input("Continue: ")
+        if exit == "n":
+            sys.exit()
+
         time_stats(df)
         station_stats(df)
+
+        print ("\nTo continue press any key, to exit enter exit")
+        cont=input("Continue: ")
+        if cont == "exit":
+            sys.exit()
         trip_duration_stats(df)
         user_stats(df)
 
